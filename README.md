@@ -1,57 +1,53 @@
 # Indicium - Airflow Challenge
+This repository contains the solution for the Airflow Challenge of the Lighthouse 2023-4 program.
 
-Esse repositório contém a solução para o Desafio do Airflow do programa Lighthouse 2023-4.
+## The Challenge
+The challenge consists of the following steps:
 
-## O desafio
+1- Create a task that reads data from the 'Order' table of the database available at `data/Northwind_small.sqlite``. This task should write to a file called `output_orders.csv``.
 
-O desafio consisite nas seguintes etapas:
+2- Create a task that reads data from the 'OrderDetail' table of the same database and performs a `join` with `output_orders.csv`. This task should calculate the quantity sold destined for Rio de Janeiro, and the count should be exported to a file `count.txt` containing only the value in text format.
 
-1- Criar uma task que lê os dados da tabela 'Order' do banco de dados disponível em `data/Northwind_small.sqlite`. Essa task deverá escrever um aqui chamado `output_orders.csv`
+3- Add a variable in Airflow with the `key` equal to `my_email` and in the value field, add your email address @indicium.tech.
 
-2- Criar uma task que leia os dados da tabela 'OrderDetail' do mesmo banco de dados e realizar um `join` com `output_orders.csv`. Essa task deverá calcular a quantidade vendida com destino ao Rio de Janeiro, a contagen deverá ser exportada em um arquivo `count.txt` que contenha somente o valor em formato de texto.
+4- Create a task execution order that should end with the task `export_final_output``.
 
-3- Adicionar uma variável no Airflow com a `key` igual a `my_email` e no campo `value` adicionar o seu email @indicium.tech.
+## Installation
+> The installation commands mentioned here are for the Ubuntu operating system. For other systems, adjustments to the commands may be necessary.
 
-4- Criar uma ordenação de execução das tasks que deverá terminar com a task `export_final_output`. 
-
-## Instalação
-
-> Os comandos de instalação aqui citados são para o sistema operacional Ubuntu, para outros sistemas será necessário realizar ajustes nos comandos.
-
-1- Clonar o repositório na sua máquina local.
-Colar no terminal o seguinte código:
+1- Clone the repository to your local machine.
+Paste the following code into your terminal:
 
 `git clone git@bitbucket.org:indiciumtech/airflow_debora.git`
 
-2- Criar um ambiente virtual.
-Acesse a pasta local do repositório e no terminal digite:
+2- Create a virtual environment.
+Navigate to the local repository folder and in the terminal, type:
 
 `python3 -m venv venv`
 
-3- Ative o ambiente virtual.
+3- Activate the virtual environment.
 
 `source venv/bin/activate`
 
-4- Realizar alterações no arquivo "airflow.cfg"
-Para que o projete rode na sua máquinas algumas alterações de caminho serão necessárias serem feitas, você deve colocar o caminho de onde o repositório foi clonado no seu computador.
+4- Make changes to the "airflow.cfg" file.
+To make the project run on your machine, some path changes will be necessary. You should replace the path where the repository was cloned on your computer.
 
-> Onde estiver "your/path" substituir pelo caminho no seu computador.
+> Wherever it says "path/to", replace it with the path on your computer.
 
-`dags_folder = ////your/path/airflow_debora/airflow-data/dags`
+`dags_folder = ////path/to/airflow-project/airflow-data/dags`
 
-`sql_alchemy_conn = sqlite: ////your/path/airflow_debora/data/Northwind_small.sqlite`
+`sql_alchemy_conn = sqlite: ////path/to/airflow-project/data/Northwind_small.sqlite`
 
-`base_log_folder = ////your/path/airflow_debora/airflow-data/logs`
+`base_log_folder = ////path/to/airflow-project/airflow-data/logs`
 
-`dag_processor_manager_log_location = ////your/path/airflow_debora/airflow-data/logs/dag_processor_manager/dag_processor_manager.log`
+`dag_processor_manager_log_location = ////path/to/airflow-project/airflow-data/logs/dag_processor_manager/dag_processor_manager.log`
 
-5- Instalar o airflow
-Para instalar o airflow escreva o seguinte código no seu terminal:
+5- Install Apache Airflow.
+To install Apache Airflow, enter the following code in your terminal:
 
 `bash install.sh`
 
-
-Se as coisas deram certo, no terminal vai aparecer a seguinte mensagem:
+If everything went well, the terminal will display the following message:
 
 ```
 standalone | 
@@ -61,25 +57,22 @@ standalone | Airflow Standalone is for development purposes only. Do not use thi
 standalone |
 
 ```
-A senha de fato é gerada automaticamente pelo Airflow e vai aparecer nos logs, no lugar de "****".
+The password is generated automatically by Airflow and will appear in the logs, replacing "******."
 
-Airflow roda na porta 8080, então podemos acessar em 
+Airflow runs on port 8080, so you can access it at
 http://localhost:8080
 
+7- In the Airflow interface, add the database connection:
 
-7- Na interface do Airflow, adicione a conexão com o banco de dados:
-
-- Coon Id: Northwind_small.sqlite
+- Connection Id: Northwind_small.sqlite
 - Conn Type: SQLite
-- Host: /your/path/airflow_debora/data/nortwind_small.sqlite (caminho do arquivo na sua máquina)
-
-> Todas as outras opções podem ser deixadas em branco.
-
+- Host: /path/to/airflow-project/data/nortwind_small.sqlite (the path to the file on your machine)
+> All other options can be left blank.
 - Save
 
-8- Execução da DAG
-Para executar a DAG:
+8- Running the DAG.
+To execute the DAG:
 
-- Na aba "DAGS" ative a DAG `desafio-airflow`;
-- Clique em "Trigger DAG" na interface do Airflow;
-- Verifique o output `final_output.txt`
+- In the "DAGS" tab, activate the DAG `desafio-airflow`;
+- Click on "Trigger DAG" in the Airflow interface;
+- Check the output in `final_output.txt`.
